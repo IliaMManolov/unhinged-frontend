@@ -24,3 +24,73 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Random-like floating animations for GraphNode */
+@keyframes floatX {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-3px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  20% { transform: translateY(2px); }
+  35% { transform: translateY(-4px); }
+  50% { transform: translateY(3px); }
+  70% { transform: translateY(-3px); }
+  85% { transform: translateY(1px); }
+}
+
+.animate-float {
+  /* Apply both animations. Different prime-ish durations make them de-sync */
+  animation: 
+    floatX 7s ease-in-out infinite, 
+    floatY 11s ease-in-out infinite;
+}
+
+/* Chat Bubble Styles */
+.chat-bubble {
+  position: relative; 
+  /* Tailwind classes for bg, padding, rounding will be applied directly in the component */
+}
+
+.chat-bubble-input::before {
+  content: '';
+  position: absolute;
+  bottom: 6px; /* Vertical position of the tail tip from the bottom of the bubble */
+  left: -8px;  /* Horizontal position of the tail tip (width of the tail) */
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;   /* Half height of the tail's base */
+  border-bottom: 8px solid transparent;/* Half height of the tail's base */
+  border-right: 8px solid #F3F4F6;    /* Color matches bg-gray-100 */
+}
+
+.chat-bubble-response::before {
+  content: '';
+  position: absolute;
+  bottom: 6px; /* Vertical position of the tail tip */
+  right: -8px; /* Horizontal position of the tail tip */
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid #DBEAFE;     /* Color matches bg-blue-100 */
+}
+
+/* Dot Animation for Loading */
+@keyframes ellipsis {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60%, 100% { content: '...'; }
+}
+
+.loading-dots::after {
+  content: '.';
+  animation: ellipsis 1.5s infinite step-end;
+  display: inline-block; /* Or block, depending on layout needs */
+  width: 1.5em; /* Adjust width to prevent layout shift if needed */
+  text-align: left;
+}
