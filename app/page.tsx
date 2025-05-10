@@ -238,15 +238,23 @@ export default function Home() {
         
         <NodeCarousel className="w-full z-10" innerRef={carouselScrollRef}> 
           {carouselItems.map((item, index) => {
-            const commonProps = {
-              key: item.id,
-              ref: (el: HTMLDivElement | null) => { carouselNodeRefs.current[index] = el; },
-            };
             if (item.type === 'textNode') {
-              return <TextNode {...commonProps} {...item.props} />;
+              return (
+                <TextNode 
+                  key={item.id} 
+                  ref={(el: HTMLDivElement | null) => { carouselNodeRefs.current[index] = el; }}
+                  {...item.props} 
+                />
+              );
             }
             if (item.type === 'imageTextNode') {
-              return <ImageTextNode {...commonProps} {...item.props} />;
+              return (
+                <ImageTextNode 
+                  key={item.id} 
+                  ref={(el: HTMLDivElement | null) => { carouselNodeRefs.current[index] = el; }}
+                  {...item.props} 
+                />
+              );
             }
             return null;
           })}
